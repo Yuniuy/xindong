@@ -57,6 +57,190 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.14); }
     }
+
+    /* ============ 视觉增强层（不改内容，只加光） ============ */
+
+    ::selection { background: #fbcfe8; color: #881337; }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #fbcfe8, #f9a8d4);
+      border-radius: 8px; border: 2px solid #fff7f9;
+    }
+
+    body {
+      background-color: #fff7f9;
+      background-image:
+        radial-gradient(1000px 680px at 10% -8%, rgba(251, 113, 133, .26), transparent 62%),
+        radial-gradient(880px 640px at 94% 2%, rgba(244, 114, 182, .24), transparent 60%),
+        radial-gradient(820px 660px at 48% 108%, rgba(253, 186, 116, .22), transparent 64%),
+        linear-gradient(165deg, #fff6f8 0%, #fff9f6 46%, #fdf1f7 100%);
+      background-attachment: fixed;
+      animation: pageIn .7s cubic-bezier(.22, 1, .36, 1) both;
+    }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+
+    body::before {
+      content: '';
+      position: fixed; inset: -18% -10%; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(closest-side, rgba(255, 255, 255, .9), transparent 70%) 16% 24% / 46% 40% no-repeat,
+        radial-gradient(closest-side, rgba(255, 210, 230, .8), transparent 70%) 84% 10% / 42% 34% no-repeat,
+        radial-gradient(closest-side, rgba(255, 233, 212, .72), transparent 70%) 58% 94% / 52% 40% no-repeat;
+      filter: blur(30px);
+      animation: drift 28s ease-in-out infinite alternate;
+    }
+    @keyframes drift {
+      from { transform: translate3d(-2%, -1%, 0) scale(1); }
+      to { transform: translate3d(3%, 2%, 0) scale(1.09); }
+    }
+
+    body > div { position: relative; z-index: 1; }
+
+    /* 玻璃卡：更实的白、更长的影、顶部一道光边 */
+    .glass-card {
+      position: relative;
+      background: linear-gradient(158deg, rgba(255, 255, 255, .97) 0%, rgba(255, 250, 252, .9) 46%, rgba(255, 247, 251, .95) 100%);
+      border: 1px solid rgba(255, 255, 255, .85);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, .95) inset,
+        0 -1px 0 rgba(244, 114, 182, .07) inset,
+        0 36px 84px -36px rgba(190, 24, 93, .34),
+        0 10px 28px -20px rgba(190, 24, 93, .24);
+      backdrop-filter: blur(18px) saturate(1.15);
+      -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    }
+    .glass-card::before {
+      content: ''; position: absolute; z-index: 3; pointer-events: none;
+      top: 0; left: 8%; right: 8%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(251, 113, 133, .65), transparent);
+    }
+
+    /* 顶部品牌圆标：加一层呼吸光 */
+    header span.rounded-2xl {
+      box-shadow: 0 10px 22px -8px rgba(244, 63, 94, .55), 0 0 0 4px rgba(255, 255, 255, .65);
+    }
+
+    /* 主按钮：深玫红渐变 + 扫光 */
+    #startQuizBtn {
+      position: relative; overflow: hidden; letter-spacing: .03em;
+      background-image: linear-gradient(118deg, #fb7185 0%, #f43f5e 28%, #e11d48 60%, #be123c 100%);
+      box-shadow: 0 18px 38px -16px rgba(225, 29, 72, .7), 0 1px 0 rgba(255, 255, 255, .42) inset;
+      transition: transform .2s ease, box-shadow .25s ease;
+    }
+    #startQuizBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 46px -16px rgba(225, 29, 72, .78), 0 1px 0 rgba(255, 255, 255, .42) inset;
+    }
+    #startQuizBtn::after {
+      content: ''; position: absolute; top: -60%; left: 0; width: 34%; height: 220%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .58), transparent);
+      transform: rotate(18deg) translateX(-140%);
+      animation: sheen 3.8s ease-in-out infinite;
+    }
+    @keyframes sheen {
+      0%, 58% { transform: rotate(18deg) translateX(-140%); }
+      100% { transform: rotate(18deg) translateX(460%); }
+    }
+
+    /* 选项：左侧亮条 + 悬停右移 */
+    .option-btn {
+      border-left-width: 3px !important;
+      border-left-color: rgba(244, 114, 182, .28) !important;
+      box-shadow: 0 2px 10px -6px rgba(190, 24, 93, .18);
+    }
+    .option-btn:hover {
+      border-left-color: #ec4899 !important;
+      transform: translateX(3px) translateY(-1px);
+      box-shadow: 0 12px 26px -14px rgba(190, 24, 93, .42);
+    }
+    .option-btn.selected {
+      border-left-color: #be123c !important;
+      box-shadow: 0 14px 30px -14px rgba(190, 24, 93, .5), 0 0 0 1px rgba(219, 39, 119, .25) inset;
+    }
+
+    /* 进度条发光 */
+    #progressBar {
+      background-image: linear-gradient(90deg, #fb7185, #f43f5e 55%, #e11d48);
+      box-shadow: 0 0 16px rgba(244, 63, 94, .62), 0 0 4px rgba(255, 255, 255, .85) inset;
+      transition: width .35s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    /* 结果页大标题：渐变字 */
+    #resultTypeTitle {
+      background: linear-gradient(118deg, #7f1d3a 0%, #be123c 42%, #f43f5e 76%, #fb7185 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; letter-spacing: .01em;
+      filter: drop-shadow(0 2px 8px rgba(244, 63, 94, .18));
+    }
+
+    /* 标签：# 开头的圆角签，加淡渐变 */
+    #resultTags span {
+      background-image: linear-gradient(140deg, #ffffff, #fff5f8);
+      box-shadow: 0 4px 12px -8px rgba(190, 24, 93, .45);
+    }
+
+    /* 欢迎页插画：轻微提饱和 */
+    #viewWelcome img { filter: saturate(1.1) contrast(1.03); }
+
+    /* 加载页：心跳光晕 */
+    #viewLoading .pulse-heart {
+      filter: drop-shadow(0 0 18px rgba(244, 63, 94, .55));
+    }
+
+    /* 顶部舞台光 */
+    body::after {
+      content: ''; position: fixed; top: 0; left: 0; right: 0; height: 42vh;
+      z-index: 0; pointer-events: none;
+      background: radial-gradient(64% 100% at 50% 0%, rgba(255, 226, 238, .9), transparent 72%);
+    }
+
+    /* 插画呼吸 */
+    #viewWelcome img { animation: breathe 9s ease-in-out infinite; transform-origin: center; }
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.018); }
+    }
+
+    /* 主按钮心动 */
+    #startQuizBtn { animation: beat 2.9s ease-in-out infinite; }
+    @keyframes beat {
+      0%, 100% { box-shadow: 0 18px 38px -16px rgba(225, 29, 72, .7), 0 1px 0 rgba(255, 255, 255, .42) inset; }
+      50% { box-shadow: 0 26px 52px -14px rgba(225, 29, 72, .85), 0 1px 0 rgba(255, 255, 255, .42) inset; }
+    }
+
+    /* 输入框聚焦发光 */
+    input:focus, select:focus {
+      outline: none !important;
+      border-color: #f472b6 !important;
+      box-shadow: 0 0 0 4px rgba(244, 114, 182, .16), 0 6px 18px -10px rgba(190, 24, 93, .4) !important;
+    }
+
+    /* 契合度做成小胶囊 */
+    #resultMatchCode {
+      background: linear-gradient(120deg, #fff1f5, #ffe4ec);
+      padding: 5px 11px; border-radius: 999px;
+      box-shadow: 0 6px 16px -8px rgba(225, 29, 72, .55);
+      letter-spacing: .02em;
+    }
+
+    @media (hover: hover) {
+      .glass-card { transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s; }
+      .glass-card:hover { transform: translateY(-3px); }
+    }
+
+    @media (max-width: 640px) {
+      body::before { filter: blur(22px); animation: none; }
+      .glass-card {
+        box-shadow: 0 22px 50px -26px rgba(190, 24, 93, .32), 0 1px 0 rgba(255, 255, 255, .95) inset;
+        backdrop-filter: blur(12px) saturate(1.1);
+        -webkit-backdrop-filter: blur(12px) saturate(1.1);
+      }
+      #startQuizBtn::after { animation: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body, body::before, #startQuizBtn, #startQuizBtn::after, #viewWelcome img { animation: none !important; }
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-pink-200 selection:text-pink-900">
